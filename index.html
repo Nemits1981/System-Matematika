@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Matematika Sederhana</title>
+    <style>
+        /* CSS untuk tampilan Card */
+        .card {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+        }
+
+        /* CSS untuk judul */
+        .card h2 {
+            text-align: center;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        /* CSS untuk label dan TextBox */
+        .card label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* TextBox dengan ukuran yang bisa disesuaikan */
+        .card input[type="text"], .card select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        /* CSS untuk button */
+        .card button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .card button:hover {
+            background-color: #45a049;
+        }
+
+        /* CSS untuk hasil */
+        .card #hasil {
+            background-color: #f9f9f9;
+            font-weight: bold;
+            text-align: center;
+            font-size: 26px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>System Matematika</h2>
+        <label for="hasil">Hasil:</label>
+        <input type="text" id="hasil" readonly>
+
+        <label for="nilaiA">Nilai A:</label>
+        <input type="text" id="nilaiA" placeholder="">
+        
+        <label for="nilaiB">Nilai B:</label>
+        <input type="text" id="nilaiB" placeholder="">
+        
+        <label for="operasi">Pilih Operasi:</label>
+        <select id="operasi">
+            <option value="penjumlahan">Penjumlahan</option>
+            <option value="pengurangan">Pengurangan</option>
+            <option value="perkalian">Perkalian</option>
+            <option value="pembagian">Pembagian</option>
+            <option value="pangkat">Pangkat</option>
+            <option value="akar">Akar Kuadrat</option>
+            <option value="luasLingkaran">Luas Lingkaran</option>
+            <option value="kelilingLingkaran">Keliling Lingkaran</option>
+        </select>
+
+        <button onclick="hitung()">Hitung</button>
+
+    
+    </div>
+    
+    <script>
+        function hitung() {
+            const nilaiA = parseFloat(document.getElementById("nilaiA").value);
+            const nilaiB = parseFloat(document.getElementById("nilaiB").value);
+            const operasi = document.getElementById("operasi").value;
+            let result;
+
+            if (isNaN(nilaiA)) {
+                alert("Masukkan angka yang valid di Nilai A.");
+                return;
+            }
+
+            if (["penjumlahan", "pengurangan", "perkalian", "pembagian", "pangkat"].includes(operasi) && isNaN(nilaiB)) {
+                alert("Masukkan angka yang valid di Nilai B.");
+                return;
+            }
+
+            switch (operasi) {
+                case "penjumlahan":
+                    result = nilaiA + nilaiB;
+                    break;
+                case "pengurangan":
+                    result = nilaiA - nilaiB;
+                    break;
+                case "perkalian":
+                    result = nilaiA * nilaiB;
+                    break;
+                case "pembagian":
+                    result = nilaiB !== 0 ? nilaiA / nilaiB : "Tidak dapat dibagi dengan 0";
+                    break;
+                case "pangkat":
+                    result = Math.pow(nilaiA, nilaiB);
+                    break;
+                case "akar":
+                    result = Math.sqrt(nilaiA);
+                    break;
+                case "luasLingkaran":
+                    result = Math.PI * Math.pow(nilaiA, 2);
+                    break;
+                case "kelilingLingkaran":
+                    result = 2 * Math.PI * nilaiA;
+                    break;
+                default:
+                    result = "Operasi tidak valid";
+            }
+
+            // Menampilkan hasil dengan pemisah ribuan menggunakan titik
+            document.getElementById("hasil").value = 
+                typeof result === "number" ? result.toLocaleString("de-DE") : result;
+        }
+    </script>
+
+</body>
+</html>
